@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Ticketing System{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Dashboard Ticketing</h2>
+
+    <div class="stats">
+        <div class="card">
+            <h3>Total Ticket</h3>
+            <div class="metric">{{ stats.total }}</div>
+        </div>
+        <div class="card">
+            <h3>Baru</h3>
+            <div class="metric">{{ stats.baru }}</div>
+        </div>
+        <div class="card">
+            <h3>Diproses</h3>
+            <div class="metric">{{ stats.diproses }}</div>
+        </div>
+        <div class="card">
+            <h3>Selesai</h3>
+            <div class="metric">{{ stats.selesai }}</div>
+        </div>
+    </div>
+
+    <div class="two-column">
+        <div class="card">
+            <h3>Buat Ticket Baru</h3>
+            <form method="POST" action="{{ url_for('create_ticket') }}" class="form-grid">
+                <input type="text" name="title" placeholder="Judul ticket" required>
+                <input type="text" name="customer" placeholder="Nama pelanggan" required>
+                <select name="category" required>
+                    <option value="">Pilih kategori</option>
+                    <option value="Teknis">Teknis</option>
+                    <option value="Billing">Billing</option>
+                    <option value="Layanan">Layanan</option>
+                    <option value="Permintaan">Permintaan</option>
+                </select>
+                <select name="priority" required>
+                    <option value="">Pilih prioritas</option>
+                    <option value="Rendah">Rendah</option>
+                    <option value="Sedang">Sedang</option>
+                    <option value="Tinggi">Tinggi</option>
+                    <option value="Kritis">Kritis</option>
+                </select>
+                <textarea name="description" rows="5" placeholder="Deskripsi masalah atau kebutuhan"></textarea>
+                <button type="submit">Simpan Ticket</button>
+            </form>
+        </div>
+
+        <div class="card ticket-list">
+            <h3>Daftar Ticket</h3>
+            {% if tickets %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Judul</th>
+                            <th>Pelanggan</th>
+                            <th>Kategori</th>
+                            <th>Prioritas</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ticket in tickets %}
+                        <tr>
+                            <td>#{{ ticket.id }}</td>
+                            <td>{{ ticket.title }}</td>
+                            <td>{{ ticket.customer }}</td>
+                            <td>{{ ticket.category }}</td>
+                            <td>
+                                {% if ticket.priority == 'Kritis' %}
+                                    <span class="pill warning">{{ ticket.priority }}</span>
+                                {% else %}
+                                    <span class="pill">{{ ticket.priority }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if ticket.status == 'Selesai' %}
+                                    <span class="pill success">{{ ticket.status }}</span>
+                                {% elif ticket.status == 'Diproses' %}
+                                    <span class="pill warning">{{ ticket.status }}</span>
+                                {% else %}
+                                    <span class="pill">{{ ticket.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <form method="POST" action="{{ url_for('update_ticket_status', ticket_id=ticket.id) }}">
+                                    <select name="status">
+                                        <option value="Baru" {% if ticket.status == 'Baru' %}selected{% endif %}>Baru</option>
+                                        <option value="Diproses" {% if ticket.status == 'Diproses' %}selected{% endif %}>Diproses</option>
+                                        <option value="Menunggu" {% if ticket.status == 'Menunggu' %}selected{% endif %}>Menunggu</option>
+                                        <option value="Selesai" {% if ticket.status == 'Selesai' %}selected{% endif %}>Selesai</option>
+                                    </select>
+                                    <button type="submit">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Belum ada tiket yang dibuat.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

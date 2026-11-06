@@ -1,0 +1,156 @@
+body {
+    background: #f5f7fb;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: #1f2937;
+}
+
+.container {
+    width: min(1200px, 90%);
+    margin: 0 auto;
+}
+
+.navbar {
+    background: #1f3a5f;
+    color: white;
+    padding: 18px 0;
+}
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar h1,
+.navbar h2 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-left: 16px;
+}
+
+.auth-box {
+    max-width: 420px;
+    margin: 80px auto;
+    background: white;
+    padding: 32px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.form-grid {
+    display: grid;
+    gap: 16px;
+}
+
+input,
+select,
+textarea,
+button {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+button {
+    background: #1f3a5f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button:hover {
+    background: #16304f;
+}
+
+.alert {
+    background: #fff3cd;
+    color: #664d03;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+}
+
+.dashboard {
+    padding: 30px 0;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #475569;
+}
+
+.metric {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+}
+
+.ticket-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+.ticket-list th,
+.ticket-list td {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.pill {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.pill.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.pill.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+@media (max-width: 760px) {
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+}
